@@ -1,3 +1,5 @@
+var exports = module.exports;
+
 var http = require("http");
 var express = require("express");
 var app = express();
@@ -8,6 +10,9 @@ app.use( bodyParser.json() );       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 })); 
+
+var server = require('http').Server(app);
+var io = exports.io = require('socket.io').listen(server);
 
 
 // Imports the Google Cloud client library
@@ -30,6 +35,8 @@ app.use(express.json());       // to support JSON-encoded bodies
 app.use(express.urlencoded()); // to support URL-encoded bodies
 
 
+
+
 app.get('/', function (req, res) {
 
 	// res.send('Hello World!');
@@ -48,72 +55,142 @@ app.get('/test', function(req,res) {
 	res.send({"Yo": "Hi"});
 })
 
-app.post('/trans/:target', function(req, res) {
+app.get('/js/socket.io.js', function(req,res) {
+	res.sendfile(path.resolve('socket.io.js'));
+});
 
-	// console.log(req.body);
-	// res.send({
-	// 	"textToTranslate": req.body.text,
-	// 	"region": req.params.target
-	// });
+app.get('/js/socket.js', function(req,res) {
+	res.sendfile(path.resolve('socket.js'));
+});
 
-	translate.
-		translate(req.body.text, req.params.target, function(err, translation) {
+io.on('connection', function(socket) {
+	//console.log(socket);
 
-			if (!err) {
-				res.send({
-					"textToTranslate": req.body.text,
-					"region": req.params.target,
-					"translated": translation
-				});
-			}
+
+	app.post('/trans/:target', function(req, res) {
+
+		// console.log(req.body);
+		// res.send({
+		// 	"textToTranslate": req.body.text,
+		// 	"region": req.params.target
+		// });
+
+		translate.
+			translate(req.body.text, req.params.target, function(err, translation) {
+
+				if (!err) {
+					res.send({
+						"textToTranslate": req.body.text,
+						"region": req.params.target,
+						"translated": translation
+					});
+					console.log('emit test');
+					socket.broadcast.emit('test', translation);
+
+				}
+
+				
+			})
+
+		// translate.
+		// 	translate(req.body.text, req.params.target)
+		// 	.then(results => {
+		// 		  const translation = results[0];
+
+		// 		  console.log(translation);
+
+		// 		  console.log(`Text: ${text}`);
+		// 		  console.log(`Translation: ${translation}`);
+
+
+
+		// 		res.send({
+		// 			"textToTranslate": req.body.text,
+		// 			"region": req.params.target,
+		// 			"translated": translation.translation,
+		// 			"1" : 1
+		// 		});
+		// 	})
+		// 	.catch(err => {
+		// 		  console.error('ERROR:', err);
+		// 	});
+
+	});
+
+});
+
+
+// app.post('/trans/:target', function(req, res) {
+
+// 	// console.log(req.body);
+// 	// res.send({
+// 	// 	"textToTranslate": req.body.text,
+// 	// 	"region": req.params.target
+// 	// });
+
+// 	translate.
+// 		translate(req.body.text, req.params.target, function(err, translation) {
+
+// 			if (!err) {
+// 				res.send({
+// 					"textToTranslate": req.body.text,
+// 					"region": req.params.target,
+// 					"translated": translation
+// 				});
+
+// 				io.emit()
+// 			}
 
 			
-		})
+// 		})
 
-	// translate.
-	// 	translate(req.body.text, req.params.target)
-	// 	.then(results => {
-	// 		  const translation = results[0];
+// 	// translate.
+// 	// 	translate(req.body.text, req.params.target)
+// 	// 	.then(results => {
+// 	// 		  const translation = results[0];
 
-	// 		  console.log(translation);
+// 	// 		  console.log(translation);
 
-	// 		  console.log(`Text: ${text}`);
-	// 		  console.log(`Translation: ${translation}`);
-
-
-
-	// 		res.send({
-	// 			"textToTranslate": req.body.text,
-	// 			"region": req.params.target,
-	// 			"translated": translation.translation,
-	// 			"1" : 1
-	// 		});
-	// 	})
-	// 	.catch(err => {
-	// 		  console.error('ERROR:', err);
-	// 	});
-
-});
+// 	// 		  console.log(`Text: ${text}`);
+// 	// 		  console.log(`Translation: ${translation}`);
 
 
-app.listen(8000, function() {
-	console.log("Listening on port 8000");
 
-	// Translates some text into Russian
-	translate
-	  .translate(text, target)
-	  .then(results => {
-	    const translation = results[0];
+// 	// 		res.send({
+// 	// 			"textToTranslate": req.body.text,
+// 	// 			"region": req.params.target,
+// 	// 			"translated": translation.translation,
+// 	// 			"1" : 1
+// 	// 		});
+// 	// 	})
+// 	// 	.catch(err => {
+// 	// 		  console.error('ERROR:', err);
+// 	// 	});
 
-	    console.log(translation);
+// });
 
-	    console.log(`Text: ${text}`);
-	    console.log(`Translation: ${translation}`);
-	  })
-	  .catch(err => {
-	    console.error('ERROR:', err);
-	  });
-});
+server.listen(8000, function () {
+	console.log("Listening on 8000");
+})
+
+// app.listen(8000, function() {
+// 	console.log("Listening on port 8000");
+
+// 	// Translates some text into Russian
+// 	translate
+// 	  .translate(text, target)
+// 	  .then(results => {
+// 	    const translation = results[0];
+
+// 	    console.log(translation);
+
+// 	    console.log(`Text: ${text}`);
+// 	    console.log(`Translation: ${translation}`);
+// 	  })
+// 	  .catch(err => {
+// 	    console.error('ERROR:', err);
+// 	  });
+// });
 
 //Create HTTP server and listen on port 8000 for requests
 // http.createServer(function (request, response) {
