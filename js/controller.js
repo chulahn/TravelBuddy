@@ -22,7 +22,15 @@
                                 q4:"Wo ist der nächste Bahnhof?",
                                 q5:"Wie heißen Sie?",
                                 q6:"Wie weit?",
-                                q7:"Wie viel?"}
+                                q7:"Wie viel?"},
+                    japanese : {abbrev : "ja",
+                                q5:"あなたの名前は何ですか？",
+                                q1:"いい食べ物は何ですか？",
+                                q2:"良いレストランはどこですか？",
+                                q3:"最も近いホテルはどこですか？",
+                                q4:"一番近い駅はどこですか？",
+                                q6:"どこまで？",
+                                q7:"いくら？"}
                 }
 
 
