@@ -12,6 +12,10 @@
 
 <h1>Food</h1>
 
+<select ng-model="target" ng-options="y.abbrev for (x, y) in targetLanguages">
+</select>
+
+
 Food:<input ng-model="text"> <button ng-click="clicked()">TEST</button><br/>
 Translation:
 {{text}}

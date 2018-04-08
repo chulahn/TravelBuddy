@@ -6,6 +6,11 @@
     
             .controller("dataController", [ '$scope', '$http' , function ($scope, $http) {
 
+                $scope.targetLanguages = {
+                    english : {abbrev : "en"},
+                    french : {abbrev : "fr"},
+                    german : {abbrev : "de"}
+                }
 
                 $scope.clicked = function() { 
 
