@@ -84,7 +84,7 @@ io.on('connection', function(socket) {
 						"region": req.params.target,
 						"translated": translation
 					});
-					console.log('emit test');
+					//console.log('emit test');
 					socket.broadcast.emit('test', translation);
 
 				}
