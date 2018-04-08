@@ -1,3 +1,7 @@
+$(document).ready(function() {
+	$("#play").hide();
+});
+
 if (typeof socket === "undefined") {
 	socket = io.connect('http://localhost:8000');
 }
@@ -54,7 +58,8 @@ socket.on('test2', function(data) {
 	        // var buttons = document.querySelectorAll('button');
 	        // buttons[0].disabled = false;
 	        // buttons[1].disabled = false;
-	        alert('decoded audio');
+	        alert('Sound Ready');
+	        $("#play").show();
 	    }, function (e) {
 	        console.log('Error decoding file', e);
 	    });

@@ -133,15 +133,65 @@ io.on('connection', function(socket) {
 
 		client.request = {};
 
-		request.input ={
-	    	'text':'Android is a mobile operating system developed by Google, based on the Linux kernel and designed primarily for touchscreen mobile devices such as smartphones and tablets.'
-	  	}
+		console.log(req.body.text);
+		console.log(req.params.target);
+
+		// request.input ={
+	 //    	'text':'Android is a mobile operating system developed by Google, based on the Linux kernel and designed primarily for touchscreen mobile devices such as smartphones and tablets.'
+	 //  	}
 		
-		request.voice ={
-		    'languageCode':'en-gb',
-		    'name':'en-GB-Standard-A',
-		    'ssmlGender':'FEMALE'
+		// request.voice ={
+		//     'languageCode':'en-gb',
+		//     'name':'en-GB-Standard-A',
+		//     'ssmlGender':'FEMALE'
+		// }
+
+		console.log()
+
+		switch(req.params.target) {
+
+			case "de":
+				request.voice ={
+				    'languageCode':'de-DE',
+				    'name':'de-DE-Standard-A',
+				    'ssmlGender':'FEMALE'
+				}
+				break;
+			case "fr":
+				request.voice ={
+				    'languageCode':'fr-FR',
+				    'name':'fr-FR-Standard-C',
+				    'ssmlGender':'FEMALE'
+				}
+				break;
+			case "es":
+				request.voice = {
+					'languageCode':'es-ES',
+					'name':'es-ES-Standard-A',
+					'ssmlGender':'FEMALE'
+				}
+				break;
+			case "jp":
+				request.voice ={
+				    'languageCode':'ja-JP',
+				    'name':'ja-JP-Standard-A',
+				    'ssmlGender':'FEMALE'
+				}
+				break;
 		}
+
+		request.input ={
+	    	'text': req.body.text
+	  	}
+
+
+		
+		// request.voice ={
+		//     'languageCode':'fr-FR',
+		//     'name':'fr-FR-Standard-C',
+		//     'ssmlGender':'FEMALE'
+		// }
+
 		request.audioConfig={
 		    'audioEncoding':'MP3'
 		}

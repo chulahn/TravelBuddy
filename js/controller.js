@@ -30,7 +30,15 @@
                                 q3:"最も近いホテルはどこですか？",
                                 q4:"一番近い駅はどこですか？",
                                 q6:"どこまで？",
-                                q7:"いくら？"}
+                                q7:"いくら？"},
+                    spanish : {abbrev : "es",
+                                q5:"¿Cuál es tu nombre?",
+                                q1:"¿Qué es buena comida?",
+                                q2:"¿Donde se encuentra un buen restaurante?",
+                                q3:"¿Dónde está el hotel más cercano?",
+                                q4:"¿Dónde está la estación de tren más cercana?",
+                                q6:"¿Cuán lejos?",
+                                q7:"¿Cuánto cuesta?"}
                 }
 
 
@@ -100,7 +108,10 @@
                 $scope.tts = function() {
                     var reqTest = {
                         method: 'POST',
-                        url: '/tts/TEST'
+                        url: '/tts/'+ $scope.target.abbrev,
+                        data: {
+                            "text": $scope.ttsText
+                        }
                     };
 
                     $http(reqTest).then(function successCallback(response) {
