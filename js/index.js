@@ -6,6 +6,8 @@ var app = express();
 var path = require('path');
 var request = require("request");
 
+var base64 = require("base64-arraybuffer");
+
 var bodyParser = require('body-parser')
 app.use( bodyParser.json() );       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
@@ -127,60 +129,64 @@ io.on('connection', function(socket) {
 
 	});
 
+	app.post('/tts/:target', function(req, res) {
+
+		client.request = {};
+
+		request.input ={
+	    	'text':'Android is a mobile operating system developed by Google, based on the Linux kernel and designed primarily for touchscreen mobile devices such as smartphones and tablets.'
+	  	}
+		
+		request.voice ={
+		    'languageCode':'en-gb',
+		    'name':'en-GB-Standard-A',
+		    'ssmlGender':'FEMALE'
+		}
+		request.audioConfig={
+		    'audioEncoding':'MP3'
+		}
+
+	  	client.synthesizeSpeech(request)
+	      .then(responses => {
+	        var response = responses[0];
+	        console.log(request);
+	        console.log(response.audioContent)
+	        socket.broadcast.emit('test2', base64.encode(response.audioContent));
+	        //socket.broadcast.emit('test2', JSON.stringify(response.audioContent.data))
+	        // doThingsWith(response)
+	      })
+	      .catch(err => {
+	        console.error(err);
+	      });
+
+		// request({
+		//     headers: {
+		//       'Authorization': 'Bearer ya29.c.ElqXBc5bpWQF7Di90IOaWSch5u2bsLb6kVG-K-0ScqEo3nBuSpGQMOtR4MqlZkbWKW8c364_NtyX9Mb2t-T0BjvvZ8OV-sVX8HpeNNianPHGZGefUsia6xhAkgw',
+		//       'Content-Type': 'application/json; charset=utf-8'
+		//   	},
+		//     uri: 'https://texttospeech.googleapis.com/v1beta1/text:synthesize',
+		//     data: {
+	 //    'input':{
+	 //      'text':'Android is a mobile operating system developed by Google, based on the Linux kernel and designed primarily for touchscreen mobile devices such as smartphones and tablets.'
+	 //    },
+	 //    'voice':{
+	 //      'languageCode':'en-gb',
+	 //      'name':'gba-vocoded',
+	 //      'ssmlGender':'FEMALE'
+	 //    },
+	 //    'audioConfig':{
+	 //      'audioEncoding':'MP3'
+	 //    }
+	 //  },
+		//     method: 'POST'
+		//   }, function (err, res, body) {
+		//     //it works!
+		//   });
+	});
+
 });
 
-app.post('/tts/:target', function(req, res) {
 
-	client.request = {};
-
-	request.input ={
-    	'text':'Android is a mobile operating system developed by Google, based on the Linux kernel and designed primarily for touchscreen mobile devices such as smartphones and tablets.'
-  	}
-	
-	request.voice ={
-	    'languageCode':'en-gb',
-	    'name':'en-GB-Standard-A',
-	    'ssmlGender':'FEMALE'
-	}
-	request.audioConfig={
-	    'audioEncoding':'MP3'
-	}
-
-  	client.synthesizeSpeech(request)
-      .then(responses => {
-        var response = responses[0];
-        console.log(request);
-        console.log(response)
-        // doThingsWith(response)
-      })
-      .catch(err => {
-        console.error(err);
-      });
-
-	// request({
-	//     headers: {
-	//       'Authorization': 'Bearer ya29.c.ElqXBc5bpWQF7Di90IOaWSch5u2bsLb6kVG-K-0ScqEo3nBuSpGQMOtR4MqlZkbWKW8c364_NtyX9Mb2t-T0BjvvZ8OV-sVX8HpeNNianPHGZGefUsia6xhAkgw',
-	//       'Content-Type': 'application/json; charset=utf-8'
-	//   	},
-	//     uri: 'https://texttospeech.googleapis.com/v1beta1/text:synthesize',
-	//     data: {
- //    'input':{
- //      'text':'Android is a mobile operating system developed by Google, based on the Linux kernel and designed primarily for touchscreen mobile devices such as smartphones and tablets.'
- //    },
- //    'voice':{
- //      'languageCode':'en-gb',
- //      'name':'gba-vocoded',
- //      'ssmlGender':'FEMALE'
- //    },
- //    'audioConfig':{
- //      'audioEncoding':'MP3'
- //    }
- //  },
-	//     method: 'POST'
-	//   }, function (err, res, body) {
-	//     //it works!
-	//   });
-});
 
 // app.post('/trans/:target', function(req, res) {
 
