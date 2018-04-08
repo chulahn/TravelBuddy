@@ -9,6 +9,7 @@
   "author": "Chul Ahn",
   "license": "ISC",
   "dependencies": {
+    "@google-cloud/text-to-speech": "^0.1.0",
     "@google-cloud/translate": "^1.1.0",
     "body-parser": "^1.18.2",
     "ejs": "^2.5.8",
