@@ -6,19 +6,47 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Travel Buddy</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">    
+
+    <style>
+    	#recommended {
+    		text-align: center;
+    	}
+
+    	#recommended .question {
+    		font-size: 24px;
+    		background: #42f47a;
+    	}
+
+    	#recommended .trans {
+    		font-size: 24px;
+    		border: 1px solid #42f47a;
+    	}
+    </style>
    
 </head>
 <body ng-app="app" ng-controller="dataController">
 
-<h1>Food</h1>
+<h1>Travel Buddy</h1>
 
-<select ng-model="target" ng-options="y.abbrev for (x, y) in targetLanguages">
+<h2>Choose Country</h2>
+<select ng-model="target" ng-options="x for (x, y) in targetLanguages">
 </select>
+
+
+<section id="recommended">
+
+	<span class="question">What is good food?</span> <br/>
+	<span class="trans">{{target.q1}}</span><br/><br/>
+
+	<span class="question">Where is a good restaurant</span> <br/>
+	<span class="trans">{{target.q2}}</span>
+
+
+</section>
 
 
 Food:<input ng-model="text" id="toTranslate" name="toTranslate"> <button ng-click="clicked()">TEST</button><br/>
 Translation:
-{{text}}
 <span id="translatedText"></span>
 
 

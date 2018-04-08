@@ -7,10 +7,16 @@
             .controller("dataController", [ '$scope', '$http' , function ($scope, $http) {
 
                 $scope.targetLanguages = {
-                    english : {abbrev : "en"},
-                    french : {abbrev : "fr"},
-                    german : {abbrev : "de"}
+                    french : {abbrev : "fr", 
+                                q1:"Qu'est-ce que la bonne nourriture",
+                                q2:"Où se trouve un bon restaurant?"},
+                    german : {abbrev : "de", 
+                                q1:"Was ist gutes Essen?",
+                                q2:"Wo gibt es ein gutes Restaurant?"}
                 }
+
+
+
 
                 $scope.clicked = function() { 
 
