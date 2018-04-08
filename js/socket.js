@@ -37,7 +37,7 @@ socket.on('test2', function(data) {
 	//alert('pass')
 	//console.log(data);	
 	console.log(data);
-	$("#mp3").text(data);
+	//$("#mp3").text(data);
 
 	var base64ToBuffer = function (buffer) {
 	    var binary = window.atob(buffer);

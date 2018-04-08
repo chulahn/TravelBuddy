@@ -6,8 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Travel Buddy</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">    
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
     <style>
+
+    	header h1 {
+    		color: #ba48ac;
+    	}
+
     	#recommended, #translateDiv, header {
     		text-align: center;
     	}
@@ -32,7 +38,7 @@
 <body ng-app="app" ng-controller="dataController">
 
 <header>
-	<h1>Travel Buddy</h1>
+	<h1>Travel Buddy <span class="fa fa-plane"></span></h1>
 
 	<h2>Choose Language</h2>
 	<select ng-model="target" ng-options="x for (x, y) in targetLanguages">
@@ -77,7 +83,7 @@
 	Translation:
 	<span class="trans" id="translatedText"></span><br/>
 
-	<span class="trans" id="mp3"></span><br/>
+	<span id="mp3"></span><br/>
 
 	Text-To-Speech	
 	<input ng-model="ttsText" id="ttsText" name="ttsText"> <button ng-click="tts()">Generate Text-To-Speech Sound</button><br/>
