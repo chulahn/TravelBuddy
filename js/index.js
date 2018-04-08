@@ -91,24 +91,41 @@ app.post('/trans/:target', function(req, res) {
 	// });
 
 	translate.
-		translate(req.body.text, req.params.target)
-		.then(results => {
-			  const translation = results[0];
+		translate(req.body.text, req.params.target, function(err, translation) {
 
-			  console.log(translation);
+			if (!err) {
+				res.send({
+					"textToTranslate": req.body.text,
+					"region": req.params.target,
+					"translated": translation
+				});
+			}
 
-			  console.log(`Text: ${text}`);
-			  console.log(`Translation: ${translation}`);
-
-			res.send({
-				"textToTranslate": req.body.text,
-				"region": req.params.target,
-				"translated": translation.translation
-			});
+			
 		})
-		.catch(err => {
-			  console.error('ERROR:', err);
-		});
+
+	// translate.
+	// 	translate(req.body.text, req.params.target)
+	// 	.then(results => {
+	// 		  const translation = results[0];
+
+	// 		  console.log(translation);
+
+	// 		  console.log(`Text: ${text}`);
+	// 		  console.log(`Translation: ${translation}`);
+
+
+
+	// 		res.send({
+	// 			"textToTranslate": req.body.text,
+	// 			"region": req.params.target,
+	// 			"translated": translation.translation,
+	// 			"1" : 1
+	// 		});
+	// 	})
+	// 	.catch(err => {
+	// 		  console.error('ERROR:', err);
+	// 	});
 
 });
 
