@@ -17,9 +17,14 @@
     		background: #42f47a;
     	}
 
-    	#recommended .trans {
+    	#recommended .trans, .trans {
     		font-size: 24px;
     		border: 1px solid #42f47a;
+    	}
+
+    	#toTranslate {
+    		background-color: #42f47a;
+    		font-size: 24px;
     	}
     </style>
    
@@ -39,15 +44,18 @@
 	<span class="trans">{{target.q1}}</span><br/><br/>
 
 	<span class="question">Where is a good restaurant</span> <br/>
-	<span class="trans">{{target.q2}}</span>
+	<span class="trans">{{target.q2}}</span><br/><br/>
 
+	<span class="question">	Where is the closest hotel?</span> <br/>
+	<span class="trans">{{target.q3}}</span>
 
 </section>
 
 
-Food:<input ng-model="text" id="toTranslate" name="toTranslate"> <button ng-click="clicked()">TEST</button><br/>
+<h3>Translate Text</h3>
+Text:<input ng-model="text" id="toTranslate" name="toTranslate"> <button ng-click="translate()">Translate</button><br/>
 Translation:
-<span id="translatedText"></span>
+<span class="trans" id="translatedText"></span>
 
 
 <span ng-model="translated"></span>

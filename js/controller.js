@@ -9,16 +9,18 @@
                 $scope.targetLanguages = {
                     french : {abbrev : "fr", 
                                 q1:"Qu'est-ce que la bonne nourriture",
-                                q2:"Où se trouve un bon restaurant?"},
+                                q2:"Où se trouve un bon restaurant?",
+                                q3:"Où est l'hôtel le plus proche?"},
                     german : {abbrev : "de", 
                                 q1:"Was ist gutes Essen?",
-                                q2:"Wo gibt es ein gutes Restaurant?"}
+                                q2:"Wo gibt es ein gutes Restaurant?",
+                                q3:"Wo ist das nächstgelegene Hotel?"}
                 }
 
 
 
 
-                $scope.clicked = function() { 
+                $scope.translate = function() { 
 
                     // var reqTest = {
                     //     method: 'GET',

@@ -3,13 +3,13 @@ if (typeof socket === "undefined") {
 }
 
 socket.on('connect' , function() {
-	console.log("Your socket.id is " + socket.id);
+	//console.log("Your socket.id is " + socket.id);
 });
 
 socket.on('test', function(data) {
 	//alert('pass')
-	console.log(data);	
-	$("#translatedText").html(data);
+	//console.log(data);	
+	$("#translatedText").text(data);
 
 
 })
