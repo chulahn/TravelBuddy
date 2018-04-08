@@ -3,6 +3,12 @@ var express = require("express");
 var app = express();
 var path = require('path');
 
+var bodyParser = require('body-parser')
+app.use( bodyParser.json() );       // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+  extended: true
+})); 
+
 
 // Imports the Google Cloud client library
 const Translate = require('@google-cloud/translate');
@@ -19,6 +25,10 @@ const translate = new Translate({
 const text = 'Hello, world!';
 // The target language
 const target = 'ru';
+
+app.use(express.json());       // to support JSON-encoded bodies
+app.use(express.urlencoded()); // to support URL-encoded bodies
+
 
 
 
@@ -71,6 +81,17 @@ app.get('/test', function(req,res) {
 
 	res.send({"Yo": "Hi"});
 })
+
+app.post('/trans/:target', function(req, res) {
+
+	console.log(req.body);
+	res.send({
+		"textToTranslate": req.body.text,
+		"region": req.params.target
+	})
+
+
+});
 
 
 app.listen(8000, function() {

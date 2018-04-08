@@ -14,17 +14,33 @@
 
                 $scope.clicked = function() { 
 
-                    var reqTest = {
-                        method: 'GET',
-                        url: '/test'
+                    // var reqTest = {
+                    //     method: 'GET',
+                    //     url: '/test'
+                    // };
+
+                    // $http(reqTest).then(function successCallback(response) {
+                    //     console.log("success");
+                    //     console.log(response);
+                    // }, function errorCallback(response) {
+                    //     console.log("fail");
+                    // });
+
+                    var reqPostTest = {
+                        method: 'POST',
+                        url: '/trans/' + $scope.target.abbrev,
+                        data: {
+                            "text": $scope.text
+                        }
                     };
 
-                    $http(reqTest).then(function successCallback(response) {
+                    $http(reqPostTest).then(function successCallback(response) {
                         console.log("success");
                         console.log(response);
                     }, function errorCallback(response) {
                         console.log("fail");
                     });
+
 
                     // var req = {
 
