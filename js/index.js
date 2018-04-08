@@ -84,12 +84,31 @@ app.get('/test', function(req,res) {
 
 app.post('/trans/:target', function(req, res) {
 
-	console.log(req.body);
-	res.send({
-		"textToTranslate": req.body.text,
-		"region": req.params.target
-	})
+	// console.log(req.body);
+	// res.send({
+	// 	"textToTranslate": req.body.text,
+	// 	"region": req.params.target
+	// });
 
+	translate.
+		translate(req.body.text, req.params.target)
+		.then(results => {
+			  const translation = results[0];
+
+			  console.log(translation);
+
+			  console.log(`Text: ${text}`);
+			  console.log(`Translation: ${translation}`);
+
+			res.send({
+				"textToTranslate": req.body.text,
+				"region": req.params.target,
+				"translated": translation.translation
+			});
+		})
+		.catch(err => {
+			  console.error('ERROR:', err);
+		});
 
 });
 
