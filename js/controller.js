@@ -8,13 +8,21 @@
 
                 $scope.targetLanguages = {
                     french : {abbrev : "fr", 
-                                q1:"Qu'est-ce que la bonne nourriture",
+                                q1:"Qu'est-ce qu'une bonne nourriture?",
                                 q2:"Où se trouve un bon restaurant?",
-                                q3:"Où est l'hôtel le plus proche?"},
+                                q3:"Où est l'hôtel le plus proche?",
+                                q4:"Où est la gare la plus proche?",
+                                q5:"Quel est ton nom?",
+                                q6:"À quelle distance?",
+                                q7:"Combien?"},
                     german : {abbrev : "de", 
                                 q1:"Was ist gutes Essen?",
                                 q2:"Wo gibt es ein gutes Restaurant?",
-                                q3:"Wo ist das nächstgelegene Hotel?"}
+                                q3:"Wo ist das nächstgelegene Hotel?",
+                                q4:"Wo ist der nächste Bahnhof?",
+                                q5:"Wie heißen Sie?",
+                                q6:"Wie weit?",
+                                q7:"Wie viel?"}
                 }
 
 
@@ -43,10 +51,10 @@
                     };
 
                     $http(reqPostTest).then(function successCallback(response) {
-                        console.log("success");
+                        // console.log("success");
                         console.log(response);
                     }, function errorCallback(response) {
-                        console.log("fail");
+                        // console.log("fail");
                     });
 
 
@@ -79,6 +87,20 @@
                     // xhr.setRequestHeader('Content-Type', 'application/json');
                     // xhr.send();
 
+                };
+
+                $scope.tts = function() {
+                    var reqTest = {
+                        method: 'POST',
+                        url: '/tts/TEST'
+                    };
+
+                    $http(reqTest).then(function successCallback(response) {
+                        console.log("success");
+                        console.log(response);
+                    }, function errorCallback(response) {
+                        console.log("fail");
+                    });
                 };
                 
             }]);

@@ -4,6 +4,7 @@ var http = require("http");
 var express = require("express");
 var app = express();
 var path = require('path');
+var request = require("request");
 
 var bodyParser = require('body-parser')
 app.use( bodyParser.json() );       // to support JSON-encoded bodies
@@ -26,6 +27,12 @@ const translate = new Translate({
   projectId: projectId,
 });
 
+// const textToSpeech = require('text-to-speech.v1beta1');
+
+// const client = new new textToSpeech.v1beta1.TextToSpeechClient({
+//   projectId: projectId,
+// 	});
+
 // The text to translate
 const text = 'Hello, world!';
 // The target language
@@ -47,12 +54,6 @@ app.get('/', function (req, res) {
 app.get('/js/controller.js', function(req,res) {
 
 	res.sendfile(path.resolve('controller.js'));
-})
-
-
-app.get('/test', function(req,res) {
-
-	res.send({"Yo": "Hi"});
 })
 
 app.get('/js/socket.io.js', function(req,res) {
@@ -119,6 +120,32 @@ io.on('connection', function(socket) {
 
 });
 
+app.post('/tts/:target', function(req, res) {
+
+	request({
+	    headers: {
+	      'Authorization': 'Bearer ya29.c.ElqXBc5bpWQF7Di90IOaWSch5u2bsLb6kVG-K-0ScqEo3nBuSpGQMOtR4MqlZkbWKW8c364_NtyX9Mb2t-T0BjvvZ8OV-sVX8HpeNNianPHGZGefUsia6xhAkgw',
+	      'Content-Type': 'application/json; charset=utf-8'
+	  	},
+	    uri: 'https://texttospeech.googleapis.com/v1beta1/text:synthesize',
+	    data: {
+    'input':{
+      'text':'Android is a mobile operating system developed by Google, based on the Linux kernel and designed primarily for touchscreen mobile devices such as smartphones and tablets.'
+    },
+    'voice':{
+      'languageCode':'en-gb',
+      'name':'gba-vocoded',
+      'ssmlGender':'FEMALE'
+    },
+    'audioConfig':{
+      'audioEncoding':'MP3'
+    }
+  },
+	    method: 'POST'
+	  }, function (err, res, body) {
+	    //it works!
+	  });
+});
 
 // app.post('/trans/:target', function(req, res) {
 
